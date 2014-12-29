@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="@dimen/listview_min_height">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imgFile"
+        android:layout_marginStart="10dp"
+        android:layout_width="@dimen/ic_file_folder_size"
+        android:layout_height="@dimen/ic_file_folder_size"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/nameFile"
+        android:layout_toEndOf="@id/imgFile"
+        android:layout_marginStart="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_font_size"
+        android:layout_centerVertical="true"/>
+
+    <CheckBox
+        android:id="@+id/checkboxFile"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"/>
+
+
+</RelativeLayout>
