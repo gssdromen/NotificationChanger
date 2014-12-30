@@ -27,6 +27,7 @@ public class AdapterFileChoose extends BaseAdapter{
 
     public void updateAdapter(File[] files){
         mFiles = files;
+        notifyDataSetChanged();
     }
 
     @Override

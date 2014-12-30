@@ -2,15 +2,16 @@ package com.notificationchanger.cedric.notificationchanger;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.notificationchanger.cedric.notificationchanger.base.BaseActivity;
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button mAdd = null;
     private ListView mList = null;
 
@@ -18,6 +19,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         mAdd = (Button) findViewById(R.id.addBtn);
         mList = (ListView) findViewById(R.id.listView);
         mAdd.setOnClickListener(this);
@@ -37,7 +39,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
