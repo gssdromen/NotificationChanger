@@ -13,6 +13,6 @@
 
     <!--FileChooseActivity-->
     <string name="action_confirm">确认</string>
-
+    <string name="add_confirmed">已添加</string>
 
 </resources>
