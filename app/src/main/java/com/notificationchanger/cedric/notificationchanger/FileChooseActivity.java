@@ -90,7 +90,7 @@ public class FileChooseActivity extends BaseActivity implements AdapterView.OnIt
     private String getFilesToString(ArrayList<File> files) {
         StringBuilder result = new StringBuilder();
         for (File file : files) {
-            result.append(file.getAbsoluteFile() + "|");
+            result.append(file.getAbsoluteFile() + Constants.SPLIT_MARK);
         }
         return result.toString();
     }

@@ -33,10 +33,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mAdd.setOnClickListener(this);
     }
 
-    private ArrayList<File> getStoredFiles(){
-        
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -54,7 +50,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==0 && resultCode==RESULT_OK){
             Bundle bundle = data.getExtras();
-            mFilesPaths=Arrays.asList(bundle.getString(SELECTED_FILES_PATHS).split("|"));
+            mFilesPaths=Arrays.asList(bundle.getString(SELECTED_FILES_PATHS).split(Constants.SPLIT_MARK));
         }
     }
 

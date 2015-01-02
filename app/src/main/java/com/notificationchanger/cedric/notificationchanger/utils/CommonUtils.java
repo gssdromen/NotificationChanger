@@ -9,6 +9,10 @@ import java.io.File;
  */
 public class CommonUtils {
 
+    public static void save(String key, Object value){
+
+    }
+
     /**
      * 获得存储卡路径
      *
