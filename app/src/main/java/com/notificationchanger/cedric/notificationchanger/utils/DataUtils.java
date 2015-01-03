@@ -1,5 +1,7 @@
 package com.notificationchanger.cedric.notificationchanger.utils;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.notificationchanger.cedric.notificationchanger.Constants;
 import com.notificationchanger.cedric.notificationchanger.utils.PreferenceUtil;
 import com.notificationchanger.cedric.notificationchanger.App;
@@ -11,14 +13,16 @@ import java.util.ArrayList;
  * Created by Cedric on 15/1/2.
  */
 public class DataUtils {
+    private static final String INFO = "stored_info";
+
     private static final String STORED_MUSIC = "stored_music";
 
-    public ArrayList<File> getStoredMusic(){
-
-        return null;
+    // 两个public方法,get与save
+    public static ArrayList<File> getStoredMusic(){
+        return getFilesFromPaths(PreferenceUtil.getString(App.getInstance(),INFO,STORED_MUSIC));
     }
 
-    public void  saveStoredMusic(ArrayList<File> musicFiles){
+    public static void saveStoredMusic(ArrayList<File> musicFiles){
         if(musicFiles.isEmpty()){
             return;
         }
@@ -26,36 +30,28 @@ public class DataUtils {
         for(File file:oldFiles){
             oldFiles.add(file);
         }
-
-    }
-
-    private ArrayList<File> getFilesFromPaths(String path){
-        ArrayList<File> files = new ArrayList<>();
-        String[] paths = path.split(Constants.SPLIT_MARK);
-        for (String s : paths){
-            if (!s.isEmpty()){
-                File file = new File(s);
-                if (file.isFile()){
-
-                }
-            }
-        }
-        return null;
+        String result = getStringOfFiles(oldFiles);
+        PreferenceUtil.putString(App.getInstance(),INFO,STORED_MUSIC,result);
     }
 
     /**
-     * 把文件的路径合并,用符号隔开
-     * @param files
-     * @return 一个总路径
+     * 返回JSON解析出的文件
+     * @param data
+     * @return
      */
-    private String getStringOfFiles(ArrayList<File> files){
-        if (files.isEmpty()){
-            return null;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (File file:files){
-            sb.append(file.getAbsoluteFile()+Constants.SPLIT_MARK);
-        }
-        return sb.toString();
+    private static ArrayList<File> getFilesFromPaths(String data){
+        Gson gson=new Gson();
+        ArrayList<File> files = gson.fromJson(data, new TypeToken<ArrayList<File>>(){}.getType());
+        return files;
+    }
+
+    /**
+     * 把文件的路径合并,JSON格式
+     * @param files
+     * @return JSON格式数组,文件的绝对路径
+     */
+    private static String getStringOfFiles(ArrayList<File> files){
+        Gson gson=new Gson();
+        return gson.toJson(files);
     }
 }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.notificationchanger.cedric.notificationchanger.adapter.AdapterFileChoose;
 import com.notificationchanger.cedric.notificationchanger.base.BaseActivity;
 import com.notificationchanger.cedric.notificationchanger.utils.CommonUtils;
+import com.notificationchanger.cedric.notificationchanger.utils.DataUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -80,19 +81,11 @@ public class FileChooseActivity extends BaseActivity implements AdapterView.OnIt
                 getUsefulMusicFiles(file);
             }
             Intent intent = new Intent();
-            intent.putExtra(SELECTED_FILES_PATHS, getFilesToString(mResultFiles));
+            DataUtils.saveStoredMusic(mResultFiles);
             setResult(RESULT_OK, intent);
             finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private String getFilesToString(ArrayList<File> files) {
-        StringBuilder result = new StringBuilder();
-        for (File file : files) {
-            result.append(file.getAbsoluteFile() + Constants.SPLIT_MARK);
-        }
-        return result.toString();
     }
 
     private void getUsefulMusicFiles(File file) {
