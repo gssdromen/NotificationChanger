@@ -6,5 +6,5 @@
         android:id="@+id/action_confirm"
         android:title="@string/action_confirm"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 </menu>

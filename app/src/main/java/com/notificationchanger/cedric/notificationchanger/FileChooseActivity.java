@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.notificationchanger.cedric.notificationchanger.adapter.AdapterFileChoose;
 import com.notificationchanger.cedric.notificationchanger.base.BaseActivity;
@@ -23,13 +22,11 @@ import java.util.List;
  * Created by dromenwu on 14/12/28.
  */
 public class FileChooseActivity extends BaseActivity implements AdapterView.OnItemClickListener, AdapterFileChoose.OnFileItemSelectedListener {
-    private static final String SELECTED_FILES_PATHS = "selected_files_paths";
-
     private List<String> mMusicSuffix = Arrays.asList("mp3", "wav", "m4a", "m4r");
 
     private ListView mList = null;
     private String rootPath = null;
-    private File[] files = null;
+    private ArrayList<File> files = new ArrayList<>();
     private ArrayList<File> mSelectedFiles = null;
     private ArrayList<File> mResultFiles = new ArrayList<>();
     private AdapterFileChoose adapterFileChoose = null;
@@ -52,10 +49,18 @@ public class FileChooseActivity extends BaseActivity implements AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        File file = files[position];
-        Toast.makeText(this, file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+        File file = files.get(position);
         if (file.isDirectory()) {
-            adapterFileChoose.updateAdapter(CommonUtils.getFilesInPath(file.getAbsolutePath()));
+            //判断是否已到sd卡根目录
+            if (file.getAbsolutePath().equalsIgnoreCase(CommonUtils.getSdcardFile().getParent())) {
+                App.showShortToast(getResources().getString(R.string.warning_root));
+            } else {
+                String path = file.getAbsolutePath();
+                files = CommonUtils.getFilesInPath(path);
+                adapterFileChoose.updateAdapter(files);
+            }
+        } else if (file.isFile()) {
+            adapterFileChoose.selectThisLine(view);
         }
     }
 
@@ -77,13 +82,15 @@ public class FileChooseActivity extends BaseActivity implements AdapterView.OnIt
         if (id == R.id.action_confirm) {
             //清空原来的
             mResultFiles.clear();
-            for (File file : mSelectedFiles) {
-                getUsefulMusicFiles(file);
+            if (!mSelectedFiles.isEmpty()){
+                for (File file : mSelectedFiles) {
+                    getUsefulMusicFiles(file);
+                }
+                Intent intent = new Intent();
+                DataUtils.saveStoredMusic(mResultFiles, true);
+                setResult(RESULT_OK, intent);
+                finish();
             }
-            Intent intent = new Intent();
-            DataUtils.saveStoredMusic(mResultFiles);
-            setResult(RESULT_OK, intent);
-            finish();
         }
         return super.onOptionsItemSelected(item);
     }

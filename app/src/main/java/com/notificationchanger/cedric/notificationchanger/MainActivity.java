@@ -5,59 +5,56 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.notificationchanger.cedric.notificationchanger.adapter.AdapterMain;
 import com.notificationchanger.cedric.notificationchanger.base.BaseActivity;
+import com.notificationchanger.cedric.notificationchanger.utils.DataUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private static final String SELECTED_FILES_PATHS = "selected_files_paths";
+public class MainActivity extends BaseActivity implements AdapterView.OnItemLongClickListener {
 
-    private Button mAdd = null;
     private ListView mList = null;
-    private List<String> mFilesPaths = null;
+    private AdapterMain mAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        mAdd = (Button) findViewById(R.id.addBtn);
         mList = (ListView) findViewById(R.id.listView);
-        mAdd.setOnClickListener(this);
+
+        mAdapter = new AdapterMain(MainActivity.this, DataUtils.getStoredMusic());
+        mList.setAdapter(mAdapter);
+        mList.setOnItemLongClickListener(this);
+        mAdapter.updateView(DataUtils.getStoredMusic());
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.addBtn:
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, FileChooseActivity.class);
-//                startActivity(intent);
-                startActivityForResult(intent, 0);
-                break;
-        }
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        ArrayList<File> files = DataUtils.getStoredMusic();
+        files.remove(position);
+        DataUtils.saveStoredMusic(files, false);
+        mAdapter.updateView(files);
+        return false;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==0 && resultCode==RESULT_OK){
-            Bundle bundle = data.getExtras();
-            mFilesPaths=Arrays.asList(bundle.getString(SELECTED_FILES_PATHS).split(Constants.SPLIT_MARK));
+        if (requestCode == 0 && resultCode == RESULT_OK) {
+            mAdapter.updateView(DataUtils.getStoredMusic());
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -69,8 +66,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.add_new) {
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, FileChooseActivity.class);
+            startActivityForResult(intent, 0);
         }
 
         return super.onOptionsItemSelected(item);

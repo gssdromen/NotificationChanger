@@ -8,11 +8,12 @@
     <string name="activity_file_choose">铃声选择</string>
 
     <!--MainActivity-->
-    <string name="action_settings">设置</string>
     <string name="add_new">添加</string>
 
     <!--FileChooseActivity-->
     <string name="action_confirm">确认</string>
     <string name="add_confirmed">已添加</string>
+    <string name="parent_dictionary">返回上一层</string>
+    <string name="warning_root">已到最上层</string>
 
 </resources>
