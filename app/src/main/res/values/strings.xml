@@ -6,14 +6,22 @@
     <!--Activity Label-->
     <string name="activity_main">铃声助手</string>
     <string name="activity_file_choose">铃声选择</string>
+    <string name="activity_help">帮助</string>
 
     <!--MainActivity-->
     <string name="add_new">添加</string>
+    <string name="help">帮助</string>
+
+    <!--Helpctivity-->
+    <string name="help_content">通过添加功能,添加音乐,每次收到短信后会在添加的音乐中自动切换,在主界面中长按能删除</string>
 
     <!--FileChooseActivity-->
     <string name="action_confirm">确认</string>
     <string name="add_confirmed">已添加</string>
     <string name="parent_dictionary">返回上一层</string>
     <string name="warning_root">已到最上层</string>
+
+    <!--NotificationReceiver-->
+    <string name="next_notification">下一个铃声:</string>
 
 </resources>

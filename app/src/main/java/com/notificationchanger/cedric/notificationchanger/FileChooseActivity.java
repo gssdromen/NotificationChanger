@@ -89,6 +89,8 @@ public class FileChooseActivity extends BaseActivity implements AdapterView.OnIt
                 Intent intent = new Intent();
                 DataUtils.saveStoredMusic(mResultFiles, true);
                 setResult(RESULT_OK, intent);
+                //计数归零
+                DataUtils.saveCurNotificationIndex(0);
                 finish();
             }
         }

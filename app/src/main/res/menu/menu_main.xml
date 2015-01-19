@@ -7,4 +7,10 @@
         android:title="@string/add_new"
         android:orderInCategory="100"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/help"
+        android:title="@string/help"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
 </menu>

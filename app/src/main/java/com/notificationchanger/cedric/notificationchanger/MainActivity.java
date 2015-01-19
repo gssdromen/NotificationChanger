@@ -64,12 +64,17 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemLong
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        Intent intent = new Intent();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.add_new) {
-            Intent intent = new Intent();
-            intent.setClass(MainActivity.this, FileChooseActivity.class);
-            startActivityForResult(intent, 0);
+        switch (id){
+            case R.id.add_new:
+                intent.setClass(MainActivity.this, FileChooseActivity.class);
+                startActivityForResult(intent, 0);
+                break;
+            case R.id.help:
+                intent.setClass(MainActivity.this, HelpActivity.class);
+                startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
