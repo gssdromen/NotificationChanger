@@ -32,7 +32,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         File file=files.get(index%count);
         App.showShortToast(context.getResources().getString(R.string.next_notification)+file.getName());
         Uri pickedUri= CommonUtils.getAudioContentUri(context, file);
-        DataUtils.saveCurNotificationIndex(index+1);
+        DataUtils.saveCurNotificationIndex((index+1)%1024);
         // 将我们选择的铃声设置成为默认
         if (pickedUri != null) {
             RingtoneManager.setActualDefaultRingtoneUri(context,
