@@ -17,9 +17,11 @@
 
     <!--FileChooseActivity-->
     <string name="action_confirm">确认</string>
+    <string name="action_cancel">取消</string>
     <string name="add_confirmed">已添加</string>
     <string name="parent_dictionary">返回上一层</string>
     <string name="warning_root">已到最上层</string>
+    <string name="no_file_selected">未选择文件</string>
 
     <!--NotificationReceiver-->
     <string name="next_notification">下一个铃声:</string>

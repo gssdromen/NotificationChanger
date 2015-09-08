@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.notificationchanger.cedric.notificationchanger.adapter.AdapterFileChoose;
 import com.notificationchanger.cedric.notificationchanger.base.BaseActivity;
@@ -78,11 +79,14 @@ public class FileChooseActivity extends BaseActivity implements AdapterView.OnIt
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_cancel) {
+            this.finish();
+        }
+
         if (id == R.id.action_confirm) {
             //清空原来的
             mResultFiles.clear();
-            if (!mSelectedFiles.isEmpty()){
+            if (mSelectedFiles != null && !mSelectedFiles.isEmpty()){
                 for (File file : mSelectedFiles) {
                     getUsefulMusicFiles(file);
                 }
@@ -91,7 +95,9 @@ public class FileChooseActivity extends BaseActivity implements AdapterView.OnIt
                 setResult(RESULT_OK, intent);
                 //计数归零
                 DataUtils.saveCurNotificationIndex(0);
-                finish();
+                this.finish();
+            } else {
+                Toast.makeText(this, R.string.no_file_selected,Toast.LENGTH_SHORT).show();
             }
         }
         return super.onOptionsItemSelected(item);

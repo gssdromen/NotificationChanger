@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Notification Sound Changer</string>
+    <string name="app_name">Notification Tone Changer</string>
     <string name="action_confirm">Confirm</string>
-    <string name="activity_file_choose">Add Your Notification Sound</string>
+    <string name="activity_file_choose">Add Your Notification Tone</string>
     <string name="activity_help">Help</string>
-    <string name="activity_main">Notification Sound Changer</string>
+    <string name="activity_main">Notification Tone Changer</string>
     <string name="add_confirmed">Added</string>
+    <string name="action_cancel">Cancel</string>
     <string name="add_new">Add</string>
     <string name="help">Help</string>
-    <string name="help_content">You can add notification sound. Everytime you receive an sms, it will change notification sound automatically. You can delete one cell by long press it</string>
-    <string name="next_notification">next notification sound:</string>
+    <string name="help_content">You can add notification tone. Everytime you receive an sms, it will change notification tone automatically. You can delete one cell by long press it</string>
+    <string name="next_notification">next notification tone:</string>
     <string name="parent_dictionary">Parent Folder</string>
     <string name="warning_root">Can not Go To Parent Folder</string>
+    <string name="no_file_selected">no file selected</string>
 </resources>
